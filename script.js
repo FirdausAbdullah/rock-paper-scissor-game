@@ -22,9 +22,10 @@ function getPlayerChoice() {
 
 
 
-function playRound (playerSelection, computerSelection){
+function playRound (btn){
 
-    let computer = computerSelection.toLowerCase();
+    let computer = getComputerChoice().toLowerCase();
+    let playerSelection = btn.srcElement.attributes.value.value;
     if(playerSelection === computer){
         return 'Tie! '.concat("player:"+playerSelection+" "+"computer:"+computer);
     }
@@ -72,4 +73,12 @@ function game(){
 
 }
 
-console.log(game());
+// ----------------------                 console.log(game());
+
+
+
+const choice = document.querySelectorAll('.choice');
+//console.log(choice);
+for(let btn of choice){
+    btn.addEventListener('click',(e)=>{console.log(playRound(e));});
+}
