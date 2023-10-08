@@ -1,8 +1,8 @@
 //this is new branch
 
 let round = 0;
-let computerScore =0;
-let playerScore =0;
+let computerScore = 0;
+let playerScore = 0;
 
 function getComputerChoice() {
     let randNum = Math.floor((Math.random()*3)+1);
@@ -21,15 +21,27 @@ function getPlayerChoice() {
     return playerChoice;
 } 
 
-function updateResult(result){
-    const newp = document.createElement('p');
-    newp.textContent = result;
-    resultDisplay.appendChild(newp);
+function updateResult(result,elem){
+    const newE = document.createElement(elem);
+    newE.textContent = result;
+    if(resultDisplay.firstElementChild){resultDisplay.removeChild(resultDisplay.firstElementChild);}
+    resultDisplay.appendChild(newE);
 }
 
 function checkWinner(){
-    if(playerScore === 5){updateResult('Player Wins !!!!!!!!');}
-    else if(computerScore === 5){updateResult('Computer Wins !!!!!!!!!');}
+    if(playerScore === 5){
+        updateResult('Player Wins !!!!!!!!','h1');
+        playerScore = 0;
+        computerScore = 0;
+        round = 0;
+    }
+    else if(computerScore === 5){
+        updateResult('Computer Wins !!!!!!!!!','h1');
+        playerScore = 0;
+        computerScore = 0;
+        round = 0;
+    }
+
 }
 
 
@@ -38,39 +50,39 @@ function playRound (btn){
     let computer = getComputerChoice().toLowerCase();
     let playerSelection = btn.srcElement.attributes.value.value;
     if(playerSelection === computer){
-        updateResult('Tie! '.concat("player:"+playerSelection+" "+"computer:"+computer));
+        updateResult(`Round: ${round}`+'Tie! '.concat("player:"+playerSelection+" "+"computer:"+computer),'p');
         //return 'Tie! '.concat("player:"+playerSelection+" "+"computer:"+computer);
     }
     else if(playerSelection == 'rock'){
         if(computer == 'paper'){
             computerScore++;
-            updateResult('Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer));
+            updateResult(`Round: ${round}`+'Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer),'p');
             //return 'Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
         }else{
             playerScore++;
-            updateResult('Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer));
+            updateResult(`Round: ${round}`+'Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer),'p');
             //return 'Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
         }
     }
     else if(playerSelection == 'scissors'){
         if(computer == 'rock'){
             computerScore++;
-            updateResult('Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer));
+            updateResult(`Round: ${round}`+'Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer),'p');
             //return 'Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
         }else{
             playerScore++;
-            updateResult('Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer));
+            updateResult(`Round: ${round}`+'Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer),'p');
             //return 'Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
         }
     }
     else if(playerSelection == 'paper'){
         if(computer == 'scissors'){
             computerScore++;
-            updateResult('Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer));
+            updateResult(`Round: ${round}`+'Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer),'p');
             //return 'Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
         }else{
             playerScore++
-            updateResult('Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer));
+            updateResult(`Round: ${round}`+'Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer),'p');
             //return 'Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
         }
     }
@@ -79,17 +91,14 @@ function playRound (btn){
 
 function game(e){
     round++;
-    updateResult(`Round: ${round}`);
     playRound(e);
     checkWinner();
 }
 
-// ----------------------                 console.log(game());
-
 
 const choice = document.querySelectorAll('.choice');
 const resultDisplay = document.querySelector('.result');
-//console.log(choice);
+
 for(let btn of choice){
     btn.addEventListener('click',(e)=>{game(e);});
 }
