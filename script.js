@@ -1,7 +1,8 @@
 //this is new branch
 
-let computerScore;
-let playerScore;
+let round = 0;
+let computerScore =0;
+let playerScore =0;
 
 function getComputerChoice() {
     let randNum = Math.floor((Math.random()*3)+1);
@@ -20,6 +21,16 @@ function getPlayerChoice() {
     return playerChoice;
 } 
 
+function updateResult(result){
+    const newp = document.createElement('p');
+    newp.textContent = result;
+    resultDisplay.appendChild(newp);
+}
+
+function checkWinner(){
+    if(playerScore === 5){updateResult('Player Wins !!!!!!!!');}
+    else if(computerScore === 5){updateResult('Computer Wins !!!!!!!!!');}
+}
 
 
 function playRound (btn){
@@ -27,58 +38,58 @@ function playRound (btn){
     let computer = getComputerChoice().toLowerCase();
     let playerSelection = btn.srcElement.attributes.value.value;
     if(playerSelection === computer){
-        return 'Tie! '.concat("player:"+playerSelection+" "+"computer:"+computer);
+        updateResult('Tie! '.concat("player:"+playerSelection+" "+"computer:"+computer));
+        //return 'Tie! '.concat("player:"+playerSelection+" "+"computer:"+computer);
     }
     else if(playerSelection == 'rock'){
         if(computer == 'paper'){
             computerScore++;
-            return 'Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
+            updateResult('Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer));
+            //return 'Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
         }else{
             playerScore++;
-            return 'Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
+            updateResult('Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer));
+            //return 'Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
         }
     }
     else if(playerSelection == 'scissors'){
         if(computer == 'rock'){
             computerScore++;
-            return 'Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
+            updateResult('Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer));
+            //return 'Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
         }else{
             playerScore++;
-            return 'Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
+            updateResult('Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer));
+            //return 'Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
         }
     }
     else if(playerSelection == 'paper'){
         if(computer == 'scissors'){
             computerScore++;
-            return 'Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
+            updateResult('Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer));
+            //return 'Computer Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
         }else{
             playerScore++
-            return 'Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
+            updateResult('Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer));
+            //return 'Player Won!  '.concat("player:"+playerSelection+" "+"computer:"+computer);
         }
     }
 
 }
 
-function game(){
-    
-    for(let i=0; i<5; i++){
-        console.log("Round " + (i+1));
-        console.log(playRound(getPlayerChoice(),getComputerChoice()));
-    }
-
-    return (playerScore==computerScore)?"TIE !! Nobody wins ": (playerScore>computerScore)?"Player WON!!!":"Computer WON!!! "; 
-
-
-
-
+function game(e){
+    round++;
+    updateResult(`Round: ${round}`);
+    playRound(e);
+    checkWinner();
 }
 
 // ----------------------                 console.log(game());
 
 
-
 const choice = document.querySelectorAll('.choice');
+const resultDisplay = document.querySelector('.result');
 //console.log(choice);
 for(let btn of choice){
-    btn.addEventListener('click',(e)=>{console.log(playRound(e));});
+    btn.addEventListener('click',(e)=>{game(e);});
 }
