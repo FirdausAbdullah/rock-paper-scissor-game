@@ -23,15 +23,15 @@ function getComputerChoice() {
     }
 }
 
-function getPlayerChoice() {
-    let playerChoice = prompt("Enter your choice. Rock/Paper/Scissors").toLowerCase();
-    return playerChoice;
-} 
+// function getPlayerChoice() {
+//     let playerChoice = prompt("Enter your choice. Rock/Paper/Scissors").toLowerCase();
+//     return playerChoice;
+// } 
 
 function updateResult(result,elem){
     const newE = document.createElement(elem);
     newE.textContent = result;
-    //if(resultDisplay.firstElementChild){resultDisplay.removeChild(resultDisplay.firstElementChild);}
+    // if(resultDisplay.firstElementChild){resultDisplay.removeChild(resultDisplay.firstElementChild);}
     resultDisplay.appendChild(newE);
 }
 
